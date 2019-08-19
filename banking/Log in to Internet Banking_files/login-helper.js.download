@@ -1,0 +1,297 @@
+var arcotClient;
+var waitTime=1000;
+var ar_clientType = "Javascript";
+var ar_timeout_period = 6000;
+var ar_signon_period = 1000;
+var ar_aidInit = false;
+var ar_aidFinish = false;
+var ar_didInit = false;
+var ar_didFinish = false;
+var ar_dnaInit = false;
+var ar_dnaFinish = false;
+var ar_stopped = false;
+var ar_clientsInited = false;
+var ar_submitted = false;
+var ar_clientPath = "";
+var ar_client;
+var ar_client2;
+var ar_clientId = "ArcotIDClient";
+var ar_clientId2 = "DeviceIdClient";
+var ar_isMESC = false;
+var ar_iterations = 2;
+var ar_form = null;
+var ar_enableBrowser = "N";
+var ar_wfCode = -1;
+var ar_rfCode = -1;
+var ar_deviceId = "1001";
+var ar_sign = "3001";
+var ar_dna = "";
+var ar_signCode = "";
+var ar_ipAddr = "";
+var ar_startTime;
+var ar_loadTime = -1;
+var ar_aidFound = "NA";
+var ar_walletNames = "[]";
+var ar_walletCount = 0;
+var ar_progress = "";
+var ar_passwd = null;
+var ar_chall = null;
+var ar_passwd = null;
+var ar_userid = null;
+var ar_appctxt = null;
+var ar_org = null;
+function do_arcotProcess(f)
+{
+	//alert("do_arcotProcess() is called");
+	//document.mainform.username.focus();
+	initArcotInline(f);
+}
+function initArcotInline(f)
+{
+	//alert("initArcotIDClient is called");
+	ar_form = f;
+	try{
+	
+	// Now create the Arcot client
+	arcotClient = new ArcotClient();
+	//assignClient();
+	arcotClient.setAttribute("clientType", ar_clientType);
+	// The clientBaseURL is the location where the client (Flash, applet or ActiveX) is present
+	//alert("clientPath:"+clientPath);
+	arcotClient.setAttribute("clientBaseURL", clientPath);
+	// This callback is invoked when the client is loaded successfully
+	arcotClient.setAttribute("clientReadyCallback", clientReady);
+	arcotClient.setAttribute("clientErrorCallback", ar_clientError);
+	// Check whether the client is supported on the browser
+	var clientType = arcotClient.findClientType();
+	//alert("clientType:"+clientType);
+	if(clientType != null)
+	{
+		// This step fetches and loads the ArcotID Client in the browser
+		
+		arcotClient.write("ArcotIDClient");
+		
+	} else {
+		setErrorMessage("Selected CA Auth ID client is not supported on this browser. Please select different client.");
+	}
+	}catch(e){
+		
+		//alert("initArcotIDClient:err:"+e.message);
+	}
+}
+function ar_clientError() {
+
+    //alert("err:" + arcotClient.GetErrorCode());
+}
+
+function getClientDisplayString()
+{
+	return "CA " + arcotClient.getClientType() +" Client " + arcotClient.GetVersion();
+}
+//This will be called when the client is loaded successfully
+function clientReady()
+{
+	ar_enableBrowser = "Y";
+	//alert("In ready function");
+}
+
+function CreateXMLHttpRequest() 
+{
+	var xmlhttp = null;
+	if (window.XMLHttpRequest)
+	{// code for IE7+, Firefox, Chrome, Opera, Safari
+		xmlhttp=new XMLHttpRequest();
+	}
+	else
+	{// code for IE6, IE5
+		xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+	}
+    return xmlhttp;
+}
+function collectArcotData(p) {
+    ar_passwd = p;
+	//alert("hash password :"+p);
+    ar_signChallenge();
+	ar_setFields();
+	//alert(ar_getField('DeviceID'));
+	//alert(ar_getField('cacheSignChallenge'));
+	//alert(ar_getField('MFP'));
+	
+}
+function ar_signChallenge() {
+    //alert("ar_signChallenge() is called");
+    ar_userid = document.forms["index2"].CorporateSignonCorpId.value;
+	//alert(ar_userid);
+    var e = challenge;
+    var t = appcttx;
+    var n = orgname;
+    
+    var r = 0;
+    var i = 0;
+    var s = false;
+    
+    try {
+        
+        
+            if (!s) {
+				//alert("look up mode alias");
+                arcotClient.SetAttribute("AID_LOOKUP_MODE", "ALIAS_ONLY");
+                s = arcotClient.isArcotIDAvailableEx(ar_userid, t, n);
+                r = arcotClient.GetErrorCode();
+                if (s) {
+                    //alert("aid found with alias");
+                    ar_sign = arcotClient.SignChallengeEx2(e, ar_passwd, ar_userid, t, n);
+                    i = arcotClient.GetErrorCode()
+                }
+            }
+            if (!s) {
+			//alert("look up mode username");
+                arcotClient.SetAttribute("AID_LOOKUP_MODE", "USERNAME_ONLY");
+                s = arcotClient.isArcotIDAvailableEx(ar_userid, t, n);
+                r = arcotClient.GetErrorCode();
+                if (s) {
+                    //alert("aid found with username");
+                    ar_sign = arcotClient.SignChallengeEx(e, ar_userid, "ARCARD", ar_passwd, n);
+                    i = arcotClient.GetErrorCode()
+                }
+            }
+			if(!s){
+				ar_sign = "201:"+i;
+			}
+			//alert("signed challenge:"+ar_sign);        
+    } catch (e) {
+        //alert(e.message);
+    }
+}
+
+
+function signChallenge()
+{
+	arcotClient.SetAttribute("storagetype", "<%=sesnManager.getArcotIDDownloadTypeStr()%>");
+	var user = document.mainform.username.value;
+	var org = document.mainform.orgname.value;
+	var pwd = document.mainform.password.value;
+	
+	if(pwd == null || (pwd.length==0))
+	{
+		//begin - exp--------------------------------------------------------------
+		var i = 0;
+		// Get the number of wallets
+		var walletcount = arcotClient.GetGlobalAttribute("walletn.count");
+		// Print out the names of all the wallets
+		for (i = 0; i < walletcount; i++)
+		{
+			var walletname = arcotClient.GetGlobalAttribute("walletn:" + i + ":name");
+			if(walletname == user.toUpperCase())
+			{
+				pwd = arcotClient.GetGlobalAttribute("walletn:"+i+":cardn:0:serialnumber").toUpperCase();
+				break;
+			}
+		}
+	}
+
+	document.mainform.signedChallenge.value =
+			arcotClient.SignChallengeEx2(GetArcotIDChallenge(), pwd, user, 
+					document.mainform.appcontext.value, org);
+	
+}
+
+
+
+//RISK AUTH
+var client;
+		
+	 	function initRiskClient(){	
+			//alert("initRiskClient is called");
+			try{				
+				client = new ca.rm.Client();	
+				//var contextPath = "<%=request.getContextPath()%>";
+				//alert(contextPath);
+				client.setProperty("baseurl", contextPath);
+				setTimeout("collectingSystemInfo()", waitTime);
+			}catch(e){
+				//alert(e.message);
+			}							
+		}
+
+	 	function collectingSystemInfo() {
+		//alert("collectingSystemInfo() is called");
+			try{
+				client.setProperty("externalip", remoteAddr);
+				client.setProperty("format", "json");
+				client.setProperty("didname", "RISKFORT_COOKIE");
+				client.loadFlash(readyCallback);
+	
+			}catch(e){
+				//alert(e);
+			}
+		}	
+	 	
+	 	function readyCallback(flag){
+			//alert("readyCallback() is called:"+flag);
+	 		processDDNA();
+	 	}
+	 	
+	 	
+	
+		 function getCallerID() {
+ 			return "123456";
+ 			//dummy caller id is used.
+		 }
+		 
+		 function processDDNA() {
+		 //alert("processDDNA() is called");
+		 try{
+			    client.processDNA();			
+			
+				var dna = client.getDNA();	
+				var time = client.getTimeTaken();
+			
+				var did = client.getDID();
+				document.index2.MFP.value = dna ;
+				document.index2.IpAddress.value = remoteAddr;
+				document.index2.CallerID.value = getCallerID();
+				document.index2.DeviceID.value = did;
+				document.index2.deviceDNA.value = dna;
+				document.index2.executionTime.value = time;
+				ar_deviceId = did;
+				ar_dna = dna;
+				ar_ipAddr = remoteAddr;
+				//alert(document.index2.MFP.value);
+				//alert(document.index2.IpAddress.value);
+				//alert(document.index2.DeviceID.value);
+				//alert(document.index2.CallerID.value);
+				//alert(document.index2.deviceDNA.value);
+				//alert(document.index2.executionTime.value);
+
+				//document.index2.submit();
+			}catch(e){
+				//alert(e);
+			}
+		 }
+		 
+function ar_setFields() {
+    ar_setField("arcotClientType", ar_clientType);
+    ar_setField("CallerID", "123456");
+    ar_setField("javascriptflag", "enabled");
+    ar_setField("arcotEnableBrowser", ar_enableBrowser);
+    ar_setField("DeviceID", ar_deviceId);
+    ar_setField("cacheSignChallenge", ar_sign);
+    ar_setField("MFP", ar_dna);
+    ar_setField("ArcotIpAddress", ar_ipAddr);
+	
+    //ar_setField("extralog", ar_extraLog())
+}
+//common
+function ar_setField(e, t) {
+    var n = ar_form.elements[e];
+    if (typeof n != "undefined") n.value = t
+}
+
+function ar_getField(e) {
+    var t = ar_form.elements[e];
+    if (typeof t != "undefined") return t.value;
+    else return null
+}
+
+

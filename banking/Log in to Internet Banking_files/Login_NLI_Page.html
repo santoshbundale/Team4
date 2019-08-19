@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<!-- saved from url=(0082)https://infinity.icicibank.com/corp/L001/consumer/Login_Revamp/Login_NLI_Page.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <!-- Required meta tags -->
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>ICICI 90</title>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="./bootstrap.min.css">
+  <link href="./main.css" rel="stylesheet">
+  <script language="JavaScript" src="./jquerymin.js(1).download"></script>
+ <script>
+ jQuery(document).ready(function(){
+ window.parent.jQuery('#topbar-wrapper').css("display", "none");
+ window.parent.jQuery('.toprow').css("display", "none");
+ window.parent.jQuery('#global').css("display", "none");
+ 
+ var url = window.parent.jQuery('#LOGIN_REVAMP_NLI_URL').val();
+jQuery.ajax({url: url,
+    dataType: "html",
+	xhrFields: { withCredentials:true },
+	type: 'GET',
+	crossDomain: true,
+    success: function(data, jqXHR, response){
+   	window.parent.jQuery('#topbar-wrapper').css("display", "none");
+	 window.parent.jQuery("#mb").addClass("mobile-icon");
+	 window.parent.jQuery("#links_container_mb").addClass("mobile-lable");
+	 window.parent.jQuery("#TopFindATM").addClass("links");
+	 window.parent.jQuery('#header-logo').css("margin-left", "5px");
+	 window.parent.jQuery('#header-logo').css("margin-top", "-25px");
+	 window.parent.jQuery('#header-logo').css("position", "absolute");
+	 window.parent.jQuery('#links_container').css("margin-top", "22px");
+	 window.parent.jQuery('#links_container').css("padding-bottom", "10px");
+	 window.parent.jQuery('#topbar-wrapper').css("display", "none");
+	window.parent.jQuery('.toprow').css("display", "block");
+	window.parent.jQuery('#global').css("display", "block");
+	jQuery('#NLI_Revamp_Banner_ID').css("display", "block");
+	document.getElementById("NLI_Revamp_Banner_ID").innerHTML=data;
+			if(jQuery(".presentation-post-event").length > 0){
+				jQuery(".presentation-post-event").each(function(i){
+					var link =jQuery(this).attr("data-presentation"); 
+					jQuery.ajax({
+							url : link,
+							dataType: "HEAD",
+							xhrFields: { withCredentials:true },
+							crossDomain: true,
+							success : function (data){
+							//alert(i);
+							},
+							error : function (jqXHR, statusText, errorThrown){
+							consoleLog(errorThrown);
+							}
+						});
+					});
+			}
+             
+    },
+	error: function(response){
+			window.parent.jQuery("#mb").addClass("mobile-icon");
+			window.parent.jQuery("#links_container_mb").addClass("mobile-lable");
+			window.parent.jQuery("#TopFindATM").addClass("links");
+			window.parent.jQuery('#header-logo').css("margin-left", "5px");
+			window.parent.jQuery('#header-logo').css("margin-top", "-25px");
+			window.parent.jQuery('#header-logo').css("position", "absolute");
+			window.parent.jQuery('#links_container').css("margin-top", "22px");
+			window.parent.jQuery('#links_container').css("padding-bottom", "10px");
+			window.parent.jQuery('#topbar-wrapper').css("display", "block");
+			window.parent.jQuery('.toprow').css("display", "block");
+			window.parent.jQuery('#global').css("display", "block");
+			jQuery('#NLI_Revamp_Banner_ID').css("display", "block");
+	}
+	
+
+});
+ });
+</script>
+<style>
+.bold1 {
+    text-align: left;
+    background: none repeat scroll 100% 0 #e7e7df;
+    background-repeat: repeat-x;
+    font-size: 14px;
+    color: #000;
+    font-weight: 700;
+    height: unset !important;
+    padding: 10px;
+}
+.section, .errsection {
+    margin-top: 0;
+    width: 100%;
+    clear: both;
+    padding-top: 0;
+}
+.width100percent1_new {
+    border: 1px solid #fff;
+    padding-bottom: 10px;
+    border-color: #f7f7f4;
+}
+.formrow {
+    background-color: transparent;
+    clear: both;
+    margin: 2px;
+    padding-top: 5px;
+    color: #000;
+    font-size: 12px;
+}
+.m_marginLeft5 {
+    margin-left: 5px;
+}
+.m_margintopneg3 {
+    margin-top: -3px!important;
+}
+.long_text {
+    text-align: left;
+    font-size: 11px;
+    color: #666;
+    padding-left: 5px;
+}
+#Caption17995316 {
+    padding-left: 0;
+}
+.bold_new {
+    color: #000;
+    font-size: 14px;
+    font-weight: 700;
+    padding-left: 16px;
+    text-align: left;
+}
+.center {
+    text-align: center;
+    vertical-align: middle;
+}
+.long_text_last_new {
+    color: #666;
+    float: left;
+    font-size: 11px;
+    margin-left: 5px;
+    margin-top: -3px;
+}
+a {
+    text-decoration: none;
+    line-height: inherit;
+    background-color: transparent;
+}
+A {
+    color: #000;
+    text-decoration: none;
+    outline: 0 none;
+}
+.long_text_orange {
+    text-align: left;
+    font-size: 11px;
+    cursor: pointer;
+    color: #666;
+    text-decoration: underline;
+    margin-left: 2px;
+}
+</style>
+</head>
+
+<body class="login">
+
+<div id="NLI_Revamp_Banner_ID" style="display: block;">
+<!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7"><![endif]--><!--[if IE 7]><html class="no-js lt-ie9 lt-ie8"><![endif]--><!--[if IE 8]><html class="no-js lt-ie9"><![endif]--><!--[if gt IE 8]><html class="no-js"><![endif]--><!--[if !(IE)]><!--><!--<![endif]--><title>login_revamp</title><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content=""><meta name="keywords" content=""><meta name="page-locale-name" content=""><meta property="og:title" content="login_revamp"><meta property="og:description" content=""><meta property="og:image" content="" type="image/jpeg"><meta name="Segment" content=""><meta name="PageType" content=""><!-- CSS Call -->
+<link rel="stylesheet" href="./bootstrap.min(1).css" type="text/css">
+<link rel="stylesheet" href="./main(1).css" type="text/css">
+<link rel="stylesheet" href="./font-awesome.min.css" type="text/css">
+
+<!-- Start Tatvic Code -->
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-17906056-1', 'auto');  
+    ga('require', 'GTM-PHHKL5K');
+
+    </script>
+
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-P8VWLJL');</script>
+    <!-- End Google Tag Manager -->
+	<!-- End Tatvic Code -->
+	
+   <!--Google Tag Manager starts-->
+    <script>
+    (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-KLMZWF');
+    </script>
+    <!--Google Tag Manager ends-->
+    
+<!-- Start Visual Website Optimizer Asynchronous Code -->
+<script type="text/javascript">
+var _vwo_clicks=50;
+var _vwo_code=(function(){
+var account_id=126657,
+settings_tolerance=2000,
+library_tolerance=2500,
+use_existing_jquery=false,
+// DO NOT EDIT BELOW THIS LINE
+
+f=false,d=document;return{use_existing_jquery:function(){return use_existing_jquery;},library_tolerance:function(){return library_tolerance;},finish:function(){if(!f){f=true;var a=d.getElementById('_vis_opt_path_hides');if(a)a.parentNode.removeChild(a);}},finished:function(){return f;},load:function(a){var b=d.createElement('script');b.src=a;b.type='text/javascript';b.innerText;b.onerror=function(){_vwo_code.finish();};d.getElementsByTagName('head')[0].appendChild(b);},init:function(){settings_timer=setTimeout('_vwo_code.finish()',settings_tolerance);this.load('//dev.visualwebsiteoptimizer.com/j.php?a='+account_id+'&u='+encodeURIComponent(d.URL)+'&r='+Math.random());var a=d.createElement('style'),b='body{opacity:0 !important;filter:alpha(opacity=0) !important;background:none !important;}',h=d.getElementsByTagName('head')[0];a.setAttribute('id','_vis_opt_path_hides');a.setAttribute('type','text/css');if(a.styleSheet)a.styleSheet.cssText=b;else a.appendChild(d.createTextNode(b));h.appendChild(a);return settings_timer;}};}());_vwo_settings_timer=_vwo_code.init();
+
+</script>
+<!-- End Visual Website Optimizer Asynchronous Code --><link rel="shortcut icon" href="https://infinity.icicibank.com/favicon.ico" type="image/x-icon"><link type="text/css" rel="stylesheet" href="./print.css" media="print"><script src="./modernizr-2.6.2.min.js.download"></script><!--[if lt IE 7]><p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p><![endif]--><div class="container"><header class="nav-header">
+<div class="middleContainer updated-header clearfix">
+<ul class="menu">
+<li class="selected">
+<a href="https://www.icicibank.com/" target="_blank">Personal</a>
+</li>
+<li>
+<a href="https://www.icicibank.com/privilege-banking/index.page" target="_blank">Privilege</a>
+</li>
+<li>
+<a href="https://www.icicibank.com/wealth-management/index.page" target="_blank">Wealth</a>
+</li>
+<li>
+<a href="http://www.icicibankprivatebanking.com/" target="_blank">Private</a>
+</li>
+<li>
+<a href="https://www.icicibank.com/nri-banking/nri-banking.page" target="_blank">NRI</a>
+</li>
+<li>
+<a href="https://www.icicibank.com/business-banking/index.page" target="_blank">Business</a>
+</li>
+<li>
+<a href="https://www.icicibank.com/sme/index.page" target="_blank">SME</a>
+</li>
+<li>
+<a href="https://www.icicibank.com/corporate/corp-index.page" target="_blank">Corporate</a>
+</li>
+<li>
+<a target="_blank" href="https://www.icicibank.com/offers/cashback-and-buy/cashback-and-buy.page">Deals &amp; More</a>
+</li>
+<li>
+<a target="_blank" href="https://www.icicibank.com/help/support-center.page">Help</a>
+</li>
+</ul>
+<div ajax="https://www.icicibank.com/ajax/ajax-direct-link-suggestions.page?" class="SearcContainer desktopsearch-container">
+<form target="_blank" action="https://www.icicibank.com/search/search-results.page?" method="post">
+<input value="Personal" name="segment" type="hidden"><input autocomplete="off" id="Search" name="token" type="text"><input value="Search" class="MagnifyingGlass" type="submit">
+</form>
+</div>
+</div>
+</header>
+<section class="banner">
+<img alt="Fund Transfer" class="banner-img" src="./fund-transfer-new-primer.jpg"><div class="container">
+<div class="row"></div>
+</div>
+</section>
+<section class="notice">
+<div class="container">
+<div class="row main-div"><div class="col-md-7">
+<div class="info card">
+<h5>Important Notices</h5>
+<ul>
+<li>As per Reserve Bank of India (RBI) guideline, Real Time Gross Settlement (RTGS) timings have been extended till 06:00 p.m. with effect from June 01, 2019.</li>
+<li>We would like to inform you that the business hours for our select branches will be revised. To know the revised timings of the branches, please <a class="para-link" href="https://www.icicibank.com/managed-assets/docs/personal/safe-banking/branch-merged-list-20feb.pdf" target="_blank">click here</a>.</li>
+<li>Bank’s Code of Commitment to Customers and Micro and Small Enterprises (MSE)
+<div class="sub-text">It spells out the rights of our customers and also the responsibilities of the bank. This is formulated to promote good and fair banking practices, increase transparency and developing a fair and cordial relationship with customers.</div>
+<div class="sub-text">Please <a class="para-link" href="https://www.icicibank.com/code-of-commitment.page" target="_blank">click here</a> to view our code of commitment.</div>
+</li>
+<li>OTP/URN for internet banking transactions for NRI customers which was earlier sent on email, is now sent on SMS at customer’s registered India/International Mobile numbers. Key transactions where OTP/URN will be sent on SMS are- Funds Transfer/Add payee or biller*/Online User id/Password generation and Risk based OTP. Please note that post new payee/biller addition, there will be a 24hour cooling period before NRI customers can initiate a transaction to the newly added payee/biller</li>
+<li><strong>Please note funds from NRO/Resident accounts cannot be transferred to an NRE account</strong></li>
+</ul>
+</div>
+</div><div class="col-md-5">
+<div class="info card">
+<div class="heading"><img src="./question.png" alt=" question mark icon">
+<h5>Did you know</h5>
+</div>
+<ul>
+<li>E-file your Tax. Now you can E-file or E-verify your Income Tax Return through Internet Banking Account.</li>
+<li>Experience the all new Bill Pay! Over 250+ Billers to pay from. Simply choose your Biller and pay Bill in few clicks.</li>
+<li>Have a dream to fulfil or a goal to achieve? Get the funds you need with an ICICI Bank Instant Personal Loan. T&amp;C apply.</li>
+<li>Cannot save every month? No worries! With iWish Flexible RD you can save any amount, anytime to achieve your wishes.&nbsp;<a class="para-link" href="https://infinity.icicibank.com/corp/AuthenticationController?FORMSGROUP_ID__=AuthenticationFG&amp;__START_TRAN_FLAG__=Y&amp;FG_BUTTONS__=LOAD&amp;ACTION.LOAD=Y&amp;AuthenticationFG.LOGIN_FLAG=1&amp;BANK_ID=ICI&amp;CTA_FLAG=IWISH&amp;ITM=nli_cms_primer_didyouknow_iwish" target="_blank">Create your goal</a>. T&amp;C apply.</li>
+</ul>
+</div>
+</div></div><div class="content-bottom">
+<h5 class="pt-4 pt-md-5">Important security information</h5>
+<div class="sub-text mb-5 pt-2">
+<ul>
+<li>Before logging in, please ensure that the URL address on the address bar of your internet browser starts with https://infinity.icicibank.com.</li>
+<li>Never provide your User ID or password to any one on phone or in response to a mail.<a href="http://www.icicibank.com/online-safe-banking/report-fraud.html" title="Report a suspicious mail." class="para-link" target="_blank">Report a suspicious mail</a></li>
+<li>Do not enter login or other sensitive information in any pop up window.</li>
+<li>Verify the site's security certificate by clicking on the padlock icon of your internet browser. For more details <a href="http://www.icicibank.com/safe-help.html" title="click here." class="para-link" target="_blank">click here</a></li>
+</ul>
+</div>
+<h5 class="pt-4 pt-md-5">Digital Security</h5>
+<div class="sub-text mb-5 pt-2">
+<p>https://infinity.icicibank.com has been verified by Entrust. The communication of your private information from any address beginning with "https" is encrypted and secured using SSL.</p>
+</div>
+</div></div>
+</section>
+<div class="bodyclass">login</div>
+
+</div><!--[if lt IE 7]><script src="/assets/js/lib/dd.belated.min.js"></script><![endif]--></div>
+  
+
+
+</body></html>
